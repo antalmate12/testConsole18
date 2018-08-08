@@ -7,17 +7,24 @@ using System.Threading.Tasks;
 
 namespace testConsoleApp
 {
+    struct f3
+    {
+        public int id;
+        public int darab;
+    }
+    
     class Program
     {
-        public static List<string> OraList = new List<string>();
-        public static List<string> PercList = new List<string>();
-        public static List<string> AzList = new List<string>();
+        public static List<int> OraList = new List<int>();
+        public static List<int> PercList = new List<int>();
+        public static List<int> AzList = new List<int>();
         public static List<string> IranyList = new List<string>();
 
         private static void Main(string[] args)
         {
             F1();
             F2();
+            F3();
             Console.ReadLine();
         }
 
@@ -31,9 +38,9 @@ namespace testConsoleApp
             while ((line = reader.ReadLine()) != null)
             {
                 var formatline = line.Split(' ');
-                OraList.Add(formatline[0]);
-                PercList.Add(formatline[1]);
-                AzList.Add(formatline[2]);
+                OraList.Add(Convert.ToInt32(formatline[0]));
+                PercList.Add(Convert.ToInt32(formatline[1]));
+                AzList.Add(Convert.ToInt32(formatline[2]));
                 IranyList.Add(formatline[3]);
             }
             Console.WriteLine("Adatok beolvasva!\n");
@@ -66,5 +73,81 @@ namespace testConsoleApp
             }
         }
 
+        static void F3()
+        {
+            List<int> Ppl = new List<int>();
+            for (int i = 0; i < AzList.Count; i++)
+            {
+                if (Ppl.Contains(AzList[i]))
+                {
+
+                }
+                else
+                {
+                    Ppl.Add(AzList[i]);
+                }
+            }
+            
+            //Console.WriteLine(Ppl.Count); --> 35
+            
+            f3[] data = new f3[Ppl.Count];
+
+            var sum = 0;
+            for (int i = 0; i < AzList.Count; i++)
+            {
+                var obj = AzList[i];
+                
+
+                if (Bennevan(data, obj))
+                {
+                    data[WhatsMyId(data, obj)].darab += 1;
+                }
+                else
+                {
+                    data[sum].id = obj;
+                    data[sum].darab = 1;
+                    sum += 1;
+                }
+            }
+            
+            // Set a variable to the My Documents path.
+            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(mydocpath, "athaladas.txt"), true))
+            {
+                foreach (var a in data)
+                {
+                    outputFile.Write("azonosító: " + a.id);
+                    outputFile.WriteLine(" darab: " + a.darab);
+                }
+            }            
+        }
+
+        static bool Bennevan(f3[] tomb, int elem)
+        {
+            bool ans=false;
+
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                if (tomb[i].id == elem)
+                {
+                    ans = true;
+                }
+            }
+            return ans;
+        }
+
+        static int WhatsMyId(f3[] tomb, int elem)
+        {
+            int id = 0;
+            for (int i = 0; i < tomb.Length; i++)
+            {
+                if (tomb[i].id == elem)
+                {
+                    id = i;
+                }
+            }
+            return id;
+        }
     }
 }
