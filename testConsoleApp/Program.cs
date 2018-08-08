@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace testConsoleApp
 {
@@ -16,6 +17,9 @@ namespace testConsoleApp
         public static List<int> PercList = new List<int>();
         public static List<int> AzList = new List<int>();
         public static List<string> IranyList = new List<string>();
+        //--
+        public static List<int> Bentlevok = new List<int>();
+
 
         private static void Main()
         {
@@ -23,7 +27,7 @@ namespace testConsoleApp
             F2();
             F3();
             F4();
-
+            F5();
             Console.ReadLine();
         }
 
@@ -121,37 +125,73 @@ namespace testConsoleApp
 
         static void F4()
         {
-            List<int>Stuff = new List<int>();
+            List<int>stuff = new List<int>();
             for (int i = 0; i < AzList.Count; i++)
             {
                 var a = AzList[i];
                 if (IranyList[i]=="be")
                 {
-                    if (!(Stuff.Contains(a)))
+                    if (!(stuff.Contains(a)))
                     {
-                        Stuff.Add(a);
+                        stuff.Add(a);
                     }
                 }
                 if (IranyList[i] == "ki")
                 {
-                    if (Stuff.Contains(a))
+                    if (stuff.Contains(a))
                     {
-                        Stuff.Remove(a);
+                        stuff.Remove(a);
                     }
                 }
             }
             Console.WriteLine("\n4. Feladat");
             Console.Write("A végén a társalgóban voltak: ");
-            foreach (var a in Stuff)
+            foreach (var a in stuff)
             {
                 Console.Write(a + " ");
             }
 
         }
 
-
-
-
+        static void F5()
+        {
+            int be = 0;
+            //feltöltjük
+            foreach (var a in IranyList)
+            {
+                if (a=="be")
+                {
+                    be += 1;
+                    Bentlevok.Add(be);
+                } else if (a == "ki")
+                {
+                    be -= 1;
+                    Bentlevok.Add(be);
+                }
+            }
+            //kiválasztjuk a legnagyobbat
+            int max = 0;
+            foreach (var a in Bentlevok)
+            {
+                if (a>max)
+                {
+                    max = a;
+                }
+            }
+            //megkeressük az ID-ját
+            for (int i = 0; i < Bentlevok.Count; i++)
+            {
+                if (Bentlevok[i]==max)
+                {
+                    max = i;
+                }
+            }
+            //maximum ID-ja --> max
+            //--
+            Console.WriteLine("\n\n5.Feladat");
+            Console.WriteLine("Például "+OraList[max]+":"+PercList[max]+"-kor voltak a legtöbben a társalgóban.\n");
+            //--
+        }
 
 
         //---------------------------
