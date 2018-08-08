@@ -9,12 +9,14 @@ namespace testConsoleApp
 {
     class Program
     {
-        public static List<string>ajtoList = new List<string>();
+        public static List<string> OraList = new List<string>();
+        public static List<string> PercList = new List<string>();
+        public static List<string> AzList = new List<string>();
+        public static List<string> IranyList = new List<string>();
 
         private static void Main(string[] args)
         {
             F1();
-
             Console.ReadLine();
         }
 
@@ -23,10 +25,15 @@ namespace testConsoleApp
             Console.WriteLine("1. Feladat");
             var reader = new StreamReader("C:\\Users\\antal\\Desktop\\ajto.txt");
             string line;
+
             Console.WriteLine("Adatok beolvasása folyamatban...");
             while ((line = reader.ReadLine()) != null)
             {
-                ajtoList.Add(line);                
+                var formatline = line.Split(' ');
+                OraList.Add(formatline[0]);
+                PercList.Add(formatline[1]);
+                AzList.Add(formatline[2]);
+                IranyList.Add(formatline[3]);
             }
             Console.WriteLine("Adatok beolvasva!\n");
         }
