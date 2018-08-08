@@ -22,6 +22,8 @@ namespace testConsoleApp
             F1();
             F2();
             F3();
+            F4();
+
             Console.ReadLine();
         }
 
@@ -51,7 +53,7 @@ namespace testConsoleApp
                 int i = 0;
                 if (IranyList[i] == "be")
                 {
-                    Console.WriteLine("Első belépő azonosítója: " + AzList[i]);
+                    Console.WriteLine("Az első belépő: " + AzList[i]);
                     break;
                 }
                 else
@@ -65,7 +67,7 @@ namespace testConsoleApp
             {
                 if (IranyList[i] == "ki")
                 {
-                    Console.WriteLine("Utoljára távozó azonosítója: " + AzList[i]);
+                    Console.WriteLine("Az utolsó kilépő: " + AzList[i]);
                     break;
                 }
             }
@@ -76,13 +78,9 @@ namespace testConsoleApp
             List<int> ppl = new List<int>();
             for (int i = 0; i < AzList.Count; i++)
             {
-                if (ppl.Contains(AzList[i]))
+                if (!(ppl.Contains(i)))
                 {
-
-                }
-                else
-                {
-                    ppl.Add(AzList[i]);
+                    ppl.Add(i);
                 }
             }
             
@@ -121,6 +119,42 @@ namespace testConsoleApp
             }            
         }
 
+        static void F4()
+        {
+            List<int>Stuff = new List<int>();
+            for (int i = 0; i < AzList.Count; i++)
+            {
+                var a = AzList[i];
+                if (IranyList[i]=="be")
+                {
+                    if (!(Stuff.Contains(a)))
+                    {
+                        Stuff.Add(a);
+                    }
+                }
+                if (IranyList[i] == "ki")
+                {
+                    if (Stuff.Contains(a))
+                    {
+                        Stuff.Remove(a);
+                    }
+                }
+            }
+            Console.WriteLine("\n4. Feladat");
+            Console.Write("A végén a társalgóban voltak: ");
+            foreach (var a in Stuff)
+            {
+                Console.Write(a + " ");
+            }
+
+        }
+
+
+
+
+
+
+        //---------------------------
         static bool Bennevan(F3[] tomb, int elem)
         {
             bool ans=false;
@@ -134,7 +168,7 @@ namespace testConsoleApp
             }
             return ans;
         }
-
+        //--
         static int WhatsMyId(F3[] tomb, int elem)
         {
             int id = 0;
@@ -147,5 +181,6 @@ namespace testConsoleApp
             }
             return id;
         }
+        //---------------------------
     }
 }
