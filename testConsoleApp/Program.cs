@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace testConsoleApp
 {
@@ -20,7 +19,9 @@ namespace testConsoleApp
         //--
         public static List<int> Bentlevok = new List<int>();
 
+        private static string wantedUser;
 
+        //--
         private static void Main()
         {
             F1();
@@ -28,6 +29,8 @@ namespace testConsoleApp
             F3();
             F4();
             F5();
+            F6();
+
             Console.ReadLine();
         }
 
@@ -193,6 +196,12 @@ namespace testConsoleApp
             //--
         }
 
+        static void F6()
+        {
+            Console.WriteLine("6. Feladat");
+            Console.Write("Adja meg a személy azonosítóját! ");
+            wantedUser = Console.ReadLine();
+        }
 
         //---------------------------
         static bool Bennevan(F3[] tomb, int elem)
