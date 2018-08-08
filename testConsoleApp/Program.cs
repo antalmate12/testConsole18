@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace testConsoleApp
 {
-    struct f3
+    internal struct F3
     {
-        public int id;
-        public int darab;
+        public int Id;
+        public int Darab;
     }
     
     class Program
@@ -20,7 +17,7 @@ namespace testConsoleApp
         public static List<int> AzList = new List<int>();
         public static List<string> IranyList = new List<string>();
 
-        private static void Main(string[] args)
+        private static void Main()
         {
             F1();
             F2();
@@ -59,6 +56,7 @@ namespace testConsoleApp
                 }
                 else
                 {
+                    // ReSharper disable once RedundantAssignment
                     i++;
                 }
             }
@@ -75,22 +73,22 @@ namespace testConsoleApp
 
         static void F3()
         {
-            List<int> Ppl = new List<int>();
+            List<int> ppl = new List<int>();
             for (int i = 0; i < AzList.Count; i++)
             {
-                if (Ppl.Contains(AzList[i]))
+                if (ppl.Contains(AzList[i]))
                 {
 
                 }
                 else
                 {
-                    Ppl.Add(AzList[i]);
+                    ppl.Add(AzList[i]);
                 }
             }
             
             //Console.WriteLine(Ppl.Count); --> 35
             
-            f3[] data = new f3[Ppl.Count];
+            F3[] data = new F3[ppl.Count];
 
             var sum = 0;
             for (int i = 0; i < AzList.Count; i++)
@@ -100,12 +98,12 @@ namespace testConsoleApp
 
                 if (Bennevan(data, obj))
                 {
-                    data[WhatsMyId(data, obj)].darab += 1;
+                    data[WhatsMyId(data, obj)].Darab += 1;
                 }
                 else
                 {
-                    data[sum].id = obj;
-                    data[sum].darab = 1;
+                    data[sum].Id = obj;
+                    data[sum].Darab = 1;
                     sum += 1;
                 }
             }
@@ -117,19 +115,19 @@ namespace testConsoleApp
             {
                 foreach (var a in data)
                 {
-                    outputFile.Write("azonosító: " + a.id);
-                    outputFile.WriteLine(" darab: " + a.darab);
+                    outputFile.Write("azonosító: " + a.Id);
+                    outputFile.WriteLine(" darab: " + a.Darab);
                 }
             }            
         }
 
-        static bool Bennevan(f3[] tomb, int elem)
+        static bool Bennevan(F3[] tomb, int elem)
         {
             bool ans=false;
 
             for (int i = 0; i < tomb.Length; i++)
             {
-                if (tomb[i].id == elem)
+                if (tomb[i].Id == elem)
                 {
                     ans = true;
                 }
@@ -137,12 +135,12 @@ namespace testConsoleApp
             return ans;
         }
 
-        static int WhatsMyId(f3[] tomb, int elem)
+        static int WhatsMyId(F3[] tomb, int elem)
         {
             int id = 0;
             for (int i = 0; i < tomb.Length; i++)
             {
-                if (tomb[i].id == elem)
+                if (tomb[i].Id == elem)
                 {
                     id = i;
                 }
