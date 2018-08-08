@@ -17,6 +17,7 @@ namespace testConsoleApp
         private static void Main(string[] args)
         {
             F1();
+            F2();
             Console.ReadLine();
         }
 
@@ -40,7 +41,30 @@ namespace testConsoleApp
 
         static void F2()
         {
-            
+            Console.WriteLine("2. Feladat");
+
+            while (true) {
+                int i = 0;
+                if (IranyList[i] == "be")
+                {
+                    Console.WriteLine("Első belépő azonosítója: " + AzList[i]);
+                    break;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            for (int i = AzList.Count - 1; i > 0; i--)
+            {
+                if (IranyList[i] == "ki")
+                {
+                    Console.WriteLine("Utoljára távozó azonosítója: " + AzList[i]);
+                    break;
+                }
+            }
         }
+
     }
 }
