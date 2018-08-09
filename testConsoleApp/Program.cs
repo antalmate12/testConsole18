@@ -19,7 +19,7 @@ namespace testConsoleApp
         //--
         public static List<int> Bentlevok = new List<int>();
 
-        private static string wantedUser;
+        private static int _wantedUser;
 
         //--
         private static void Main()
@@ -30,6 +30,7 @@ namespace testConsoleApp
             F4();
             F5();
             F6();
+            F7();
 
             Console.ReadLine();
         }
@@ -200,11 +201,59 @@ namespace testConsoleApp
         {
             Console.WriteLine("6. Feladat");
             Console.Write("Adja meg a személy azonosítóját! ");
-            wantedUser = Console.ReadLine();
+            _wantedUser = Convert.ToInt32(Console.ReadLine());
+        }
+
+        static void F7()
+        {
+            Console.WriteLine("\n7. Feladat");
+            var firsthour = new List<int>();
+            var firstmin = new List<int>();
+
+            var sechour = new List<int>();
+            var secmin = new List<int>();
+
+            for (var i = 0; i < AzList.Count; i++)
+            {
+                if (AzList[i] == _wantedUser)
+                {
+                    if (IranyList[i] == "be")
+                    {
+                        firsthour.Add(OraList[i]);
+                        firstmin.Add(PercList[i]);
+                    }
+                    else
+                    {
+                        sechour.Add(OraList[i]);
+                        secmin.Add(PercList[i]);
+                    }
+                }
+            }
+
+            var max = firsthour.Count;
+            if (sechour.Count>max)
+            {
+                max = sechour.Count;
+            }
+
+            for (var i = 0; i < max-1; i++)
+            {
+                Console.WriteLine(firsthour[i] + ":" + firstmin[i]+"-"+sechour[i]+":"+secmin[i]);
+            }
+            if (firsthour.Count > sechour.Count)
+            {
+                Console.WriteLine(firsthour[max - 1] + ":" + firstmin[max - 1] + "-");
+            }
+            else
+            {
+                Console.WriteLine("     -"+sechour[max - 1] + ":" + secmin[max - 1]);
+
+            }
+
         }
 
         //---------------------------
-        static bool Bennevan(F3[] tomb, int elem)
+        private static bool Bennevan(F3[] tomb, int elem)
         {
             bool ans=false;
 
@@ -218,7 +267,7 @@ namespace testConsoleApp
             return ans;
         }
         //--
-        static int WhatsMyId(F3[] tomb, int elem)
+        private static int WhatsMyId(F3[] tomb, int elem)
         {
             int id = 0;
             for (int i = 0; i < tomb.Length; i++)
