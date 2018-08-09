@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace testConsoleApp
 {
@@ -9,8 +10,8 @@ namespace testConsoleApp
         public int Id;
         public int Darab;
     }
-    
-    class Program
+
+    internal class Program
     {
         public static List<int> OraList = new List<int>();
         public static List<int> PercList = new List<int>();
@@ -31,11 +32,11 @@ namespace testConsoleApp
             F5();
             F6();
             F7();
-
+            F8();
             Console.ReadLine();
         }
 
-        static void F1()
+        private static void F1()
         {
             Console.WriteLine("1. Feladat");
             var reader = new StreamReader("C:\\Users\\antal\\Desktop\\ajto.txt");
@@ -53,7 +54,7 @@ namespace testConsoleApp
             Console.WriteLine("Adatok beolvasva!\n");
         }
 
-        static void F2()
+        private static void F2()
         {
             Console.WriteLine("2. Feladat");
 
@@ -81,7 +82,7 @@ namespace testConsoleApp
             }
         }
 
-        static void F3()
+        private static void F3()
         {
             List<int> ppl = new List<int>();
             for (int i = 0; i < AzList.Count; i++)
@@ -127,7 +128,7 @@ namespace testConsoleApp
             }            
         }
 
-        static void F4()
+        private static void F4()
         {
             List<int>stuff = new List<int>();
             for (int i = 0; i < AzList.Count; i++)
@@ -157,7 +158,7 @@ namespace testConsoleApp
 
         }
 
-        static void F5()
+        private static void F5()
         {
             int be = 0;
             //feltöltjük
@@ -197,21 +198,24 @@ namespace testConsoleApp
             //--
         }
 
-        static void F6()
+        private static void F6()
         {
             Console.WriteLine("6. Feladat");
             Console.Write("Adja meg a személy azonosítóját! ");
             _wantedUser = Convert.ToInt32(Console.ReadLine());
         }
 
-        static void F7()
+
+        static List<int> firsthour = new List<int>();
+        static List<int> firstmin = new List<int>();
+
+        static List<int> sechour = new List<int>();
+        static List<int> secmin = new List<int>();
+
+
+        private static void F7()
         {
             Console.WriteLine("\n7. Feladat");
-            var firsthour = new List<int>();
-            var firstmin = new List<int>();
-
-            var sechour = new List<int>();
-            var secmin = new List<int>();
 
             for (var i = 0; i < AzList.Count; i++)
             {
@@ -246,11 +250,48 @@ namespace testConsoleApp
             }
             else
             {
-                Console.WriteLine("     -"+sechour[max - 1] + ":" + secmin[max - 1]);
+                Console.WriteLine(firsthour[max-1] + ":" + firstmin[max - 1] + "-" + sechour[max - 1] + ":" + secmin[max - 1]);
 
             }
 
         }
+
+        private static void F8()
+        {
+            Console.WriteLine("\n8. Feladat");
+            //hány perc? Megfigyelés: 09-15
+
+            //Bepercek
+            var bepercek = firsthour.Select((t, i) => (t * 60) + firstmin[i]).ToList();
+            //Kipercek
+            var kipercek = sechour.Select((t, i) => (t * 60) + secmin[i]).ToList();
+            //--
+            var msg = "";
+            if (bepercek.Count > kipercek.Count)
+            {
+                kipercek.Add(900);
+                msg = "a megfigyelés végén a társalgóban volt.";
+            }
+            else
+            {
+                msg = "a megfigyelés végén nem volt a társalgóban.";
+            }
+            //--
+            var percek = bepercek.Select((t, i) => kipercek[i] - t).ToList();
+            //--
+            int perc=0;
+            foreach (var a in percek)
+            {
+                perc += a;
+            }
+
+                Console.WriteLine("A(z) " + _wantedUser + ". személy összesen " + perc + " percet volt bent, " +
+                                  msg);
+
+            
+        }
+
+
 
         //---------------------------
         private static bool Bennevan(F3[] tomb, int elem)
