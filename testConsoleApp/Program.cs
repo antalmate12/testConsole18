@@ -13,16 +13,21 @@ namespace testConsoleApp
 
     internal class Program
     {
+        #region Storage
         public static List<int> OraList = new List<int>();
         public static List<int> PercList = new List<int>();
         public static List<int> AzList = new List<int>();
+
         public static List<string> IranyList = new List<string>();
+
         //--
         public static List<int> Bentlevok = new List<int>();
 
         private static int _wantedUser;
 
         //--
+        #endregion
+
         private static void Main()
         {
             F1();
@@ -36,10 +41,12 @@ namespace testConsoleApp
             Console.ReadLine();
         }
 
+        #region Feladatok
+
         private static void F1()
         {
             Console.WriteLine("1. Feladat");
-            var reader = new StreamReader("C:\\Users\\antal\\Desktop\\ajto.txt");
+            var reader = new StreamReader(@"..\..\source\ajto.txt");
             string line;
 
             Console.WriteLine("Adatok beolvasása folyamatban...");
@@ -58,7 +65,8 @@ namespace testConsoleApp
         {
             Console.WriteLine("2. Feladat");
 
-            while (true) {
+            while (true)
+            {
                 var i = 0;
                 if (IranyList[i] == "be")
                 {
@@ -82,15 +90,15 @@ namespace testConsoleApp
         private static void F3()
         {
             var ppl = new List<int>();
-            for (var i = 0; i < AzList.Count; i++)
+            foreach (var item in AzList)
             {
-                if (!(ppl.Contains(i)))
+                if (!(ppl.Contains(item)))
                 {
-                    ppl.Add(i);
+                    ppl.Add(item);
                 }
             }
-            
-            var data = new F3[ppl.Count];
+            var nax = ppl.Count;
+            var data = new F3[nax];
 
             var sum = 0;
             foreach (var obj in AzList)
@@ -106,18 +114,42 @@ namespace testConsoleApp
                     sum += 1;
                 }
             }
-            
-            // Set a variable to the My Documents path.
-            var mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
+
+            // Set a variable to the My Documents path.
+            var mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);            
+            //Rendezés (az. szerint növekvő)
+            for (var i = 0; i < nax - 1; i++)
+            {
+                for (var j = i + 1; j < nax; j++)
+                {
+                    if (data[i].Id > data[j].Id) {
+                        var swapid = data[j].Id;
+                        var swapdb = data[j].Darab;
+
+                        data[j].Id = data[i].Id;
+                        data[i].Id = swapid;
+
+                        data[j].Darab = data[i].Darab;
+                        data[i].Darab = swapdb;
+                    }
+                }
+            }
+            //Fájlba írás
             using (var outputFile = new StreamWriter(Path.Combine(mydocpath, "athaladas.txt"), true))
             {
                 foreach (var a in data)
                 {
                     outputFile.Write("azonosító: " + a.Id);
                     outputFile.WriteLine(" darab: " + a.Darab);
+                    {
+                        //Szedd ki a kommentet innen, ha konzolon is tesztelni akarod.
+                        /*Console.Write("azonosító: " + a.Id);
+                        Console.WriteLine(" darab: " + a.Darab);*/
+                    }
                 }
-            }            
+            }
+
         }
 
         private static void F4()
@@ -266,7 +298,9 @@ namespace testConsoleApp
             var perc= percek.Sum();
             Console.WriteLine("A(z) " + _wantedUser + ". személy összesen " + perc + " percet volt bent, " +msg);            
         }
+        #endregion
 
+        #region Seged_Fuggveny
         //---------------------------
         private static bool Bennevan(IList<F3> tomb, int elem)
         {
@@ -295,5 +329,7 @@ namespace testConsoleApp
             return id;
         }
         //---------------------------
+#endregion
+
     }
 }

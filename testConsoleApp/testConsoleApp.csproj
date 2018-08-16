@@ -47,6 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="source\e_inf_18maj_fl.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="source\ajto.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
